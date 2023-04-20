@@ -17,7 +17,7 @@ The created tree can be analysed with the `validate_output.ipynb` jupyter notebo
 
 ### Reconstruction
 ```
-02-00-do_reco.sh
+./02-00-do_reco.sh
 ```
 does the reconstruction and saves edm4hep output into the folder `reco_ouput`
 
