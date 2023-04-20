@@ -1,0 +1,3 @@
+[submodule "CLICPerformance"]
+	path = CLICPerformance
+	url = https://github.com/iLCSoft/CLICPerformance.git
