@@ -1,0 +1,1 @@
+At the moment this is a bit of a playground for me to figure out how to best generate, reconstruct and analyse single particle (and other) samples for detector optimisation studies for CLD
