@@ -25,4 +25,5 @@ ddsim --compactFile $COMPACT_FILE \
       --gun.distribution uniform \
       --gun.thetaMin 90 \
       --gun.thetaMax 90 \
-      --numberOfEvents 10000
+      --crossingAngleBoost 0 \
+      --numberOfEvents 1000
