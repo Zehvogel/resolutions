@@ -1,3 +1,6 @@
 [submodule "CLICPerformance"]
 	path = CLICPerformance
 	url = https://github.com/iLCSoft/CLICPerformance.git
+[submodule "FCCAnalyses"]
+	path = FCCAnalyses
+	url = https://github.com/Zehvogel/FCCAnalyses.git
