@@ -6,6 +6,7 @@ class RDFanalysis():
             .Alias("MCRecoAssociations0", "RecoMCTruthLink#0.index")
             .Alias("MCRecoAssociations1", "RecoMCTruthLink#1.index")
             .Alias("ReconstructedParticles", "PandoraPFOs")
+            # FIXME: does not use the "right" mc particle but the one with the last association in the collection.... :/
             .Define("MC_genStat",
                     "ReconstructedParticle2MC::getRP2MC_genStat(MCRecoAssociations0, MCRecoAssociations1, ReconstructedParticles, MCParticles)")
             .Define("MC_p",
