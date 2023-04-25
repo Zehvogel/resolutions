@@ -6,19 +6,15 @@ class RDFanalysis():
             .Alias("MCRecoAssociations0", "RecoMCTruthLink#0.index")
             .Alias("MCRecoAssociations1", "RecoMCTruthLink#1.index")
             .Alias("ReconstructedParticles", "PandoraPFOs")
-            # FIXME: does not use the "right" mc particle but the one with the last association in the collection.... :/
-            .Define("MC_genStat",
-                    "ReconstructedParticle2MC::getRP2MC_genStat(MCRecoAssociations0, MCRecoAssociations1, ReconstructedParticles, MCParticles)")
-            .Define("MC_p",
-                    "ReconstructedParticle2MC::getRP2MC_p(MCRecoAssociations0, MCRecoAssociations1, ReconstructedParticles, MCParticles)")
-            .Define("e_mc_p", "MC_p[MC_genStat == 1]")
+            # plan for this stage: create new columns for reco and mc electrons
+            .Define("RP_MC_index",
+                    "ReconstructedParticle2MC::getRP2MC_index(MCRecoAssociations0, MCRecoAssociations1, ReconstructedParticles, MCParticles)")
+
         )
         return df2
 
     def output():
         branchList = [
-                "MC_genStat",
                 "MC_p",
-                "e_mc_p"
         ]
         return branchList
