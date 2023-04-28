@@ -173,7 +173,7 @@ MyTruthTrackFinder.OutputLevel = WARNING
 MyTruthTrackFinder.ProcessorType = "TruthTrackFinder"
 MyTruthTrackFinder.Parameters = {
                                  "FitForward": ["true"],
-                                 "MCParticleCollectionName": ["MCParticle"],
+                                 "MCParticleCollectionName": ["MCParticles"],
                                  "SiTrackCollectionName": ["SiTracks"],
                                  "SiTrackRelationCollectionName": ["SiTrackRelations"],
                                  "SimTrackerHitRelCollectionNames": ["VXDTrackerHitRelations", "InnerTrackerBarrelHitsRelations", "OuterTrackerBarrelHitsRelations", "VXDEndcapTrackerHitRelations", "InnerTrackerEndcapHitsRelations", "OuterTrackerEndcapHitsRelations"],
@@ -188,7 +188,7 @@ MyConformalTracking.Parameters = {
                                   "DebugHits": ["DebugHits"],
                                   "DebugPlots": ["false"],
                                   "DebugTiming": ["false"],
-                                  "MCParticleCollectionName": ["MCParticle"],
+                                  "MCParticleCollectionName": ["MCParticles"],
                                   "MaxHitInvertedFit": ["0"],
                                   "MinClustersOnTrackAfterFit": ["3"],
                                   "RelationsNames": ["VXDTrackerHitRelations", "VXDEndcapTrackerHitRelations", "InnerTrackerBarrelHitsRelations", "OuterTrackerBarrelHitsRelations", "InnerTrackerEndcapHitsRelations", "OuterTrackerEndcapHitsRelations"],
@@ -240,7 +240,7 @@ MyClicEfficiencyCalculator = MarlinProcessorWrapper("MyClicEfficiencyCalculator"
 MyClicEfficiencyCalculator.OutputLevel = WARNING
 MyClicEfficiencyCalculator.ProcessorType = "ClicEfficiencyCalculator"
 MyClicEfficiencyCalculator.Parameters = {
-                                         "MCParticleCollectionName": ["MCParticle"],
+                                         "MCParticleCollectionName": ["MCParticles"],
                                          "MCParticleNotReco": ["MCParticleNotReco"],
                                          "MCPhysicsParticleCollectionName": ["MCPhysicsParticles"],
                                          "TrackCollectionName": ["SiTracks_Refitted"],
@@ -258,7 +258,7 @@ MyTrackChecker = MarlinProcessorWrapper("MyTrackChecker")
 MyTrackChecker.OutputLevel = WARNING
 MyTrackChecker.ProcessorType = "TrackChecker"
 MyTrackChecker.Parameters = {
-                             "MCParticleCollectionName": ["MCParticle"],
+                             "MCParticleCollectionName": ["MCParticles"],
                              "TrackCollectionName": ["SiTracks_Refitted"],
                              "TrackRelationCollectionName": ["SiTracksMCTruthLink"],
                              "TreeName": ["checktree"],
@@ -433,7 +433,7 @@ JetClusteringAndRefiner.Parameters = {
                                       "JetVertexRefiner.mind0sigSingle": ["5."],
                                       "JetVertexRefiner.minz0sigSingle": ["5."],
                                       "JetVertexRefiner.useBNess": ["0"],
-                                      "MCPCollection": ["MCParticle"],
+                                      "MCPCollection": ["MCParticles"],
                                       "MCPFORelation": ["RecoMCTruthLink"],
                                       "MagneticField": ["2.0"],
                                       "PFOCollection": ["PFOsFromJets"],
@@ -469,7 +469,7 @@ Output_DST.OutputLevel = WARNING
 Output_DST.ProcessorType = "LCIOOutputProcessor"
 Output_DST.Parameters = {
                          "DropCollectionNames": [],
-                         "DropCollectionTypes": ["MCParticle", "LCRelation", "SimCalorimeterHit", "CalorimeterHit", "SimTrackerHit", "TrackerHit", "TrackerHitPlane", "Track", "ReconstructedParticle", "LCFloatVec"],
+                         "DropCollectionTypes": ["MCParticles", "LCRelation", "SimCalorimeterHit", "CalorimeterHit", "SimTrackerHit", "TrackerHit", "TrackerHitPlane", "Track", "ReconstructedParticle", "LCFloatVec"],
                          "FullSubsetCollections": ["EfficientMCParticles", "InefficientMCParticles", "MCPhysicsParticles"],
                          "KeepCollectionNames": ["MCParticlesSkimmed", "MCPhysicsParticles", "RecoMCTruthLink", "SiTracks", "SiTracks_Refitted", "PandoraClusters", "PandoraPFOs", "SelectedPandoraPFOs", "LooseSelectedPandoraPFOs", "TightSelectedPandoraPFOs", "RefinedVertexJets", "RefinedVertexJets_rel", "RefinedVertexJets_vtx", "RefinedVertexJets_vtx_RP", "BuildUpVertices", "BuildUpVertices_res", "BuildUpVertices_RP", "BuildUpVertices_res_RP", "BuildUpVertices_V0", "BuildUpVertices_V0_res", "BuildUpVertices_V0_RP", "BuildUpVertices_V0_res_RP", "PrimaryVertices", "PrimaryVertices_res", "PrimaryVertices_RP", "PrimaryVertices_res_RP", "RefinedVertices", "RefinedVertices_RP"],
                          "LCIOOutputFile": ["Output_DST.slcio"],
@@ -483,7 +483,7 @@ OverlayFalse.Parameters = {
                            "BackgroundFileNames": [],
                            "Collection_IntegrationTimes": ["VertexBarrelCollection", "380", "VertexEndcapCollection", "380", "InnerTrackerBarrelCollection", "380", "InnerTrackerEndcapCollection", "380", "OuterTrackerBarrelCollection", "380", "OuterTrackerEndcapCollection", "380", "ECalBarrelCollection", "380", "ECalEndcapCollection", "380", "HCalBarrelCollection", "380", "HCalEndcapCollection", "380", "HCalRingCollection", "380", "YokeBarrelCollection", "380", "YokeEndcapCollection", "380", "LumiCalCollection", "380"],
                            "Delta_t": ["20"],
-                           "MCParticleCollectionName": ["MCParticle"],
+                           "MCParticleCollectionName": ["MCParticles"],
                            "MCPhysicsParticleCollectionName": ["MCPhysicsParticles"],
                            "NBunchtrain": ["0"],
                            "NumberBackground": ["0."],
@@ -500,7 +500,7 @@ Overlay91GeV.Parameters = {
                            "BackgroundFileNames": ["pairs_Z_sim.slcio"],
                            "Collection_IntegrationTimes": ["VertexBarrelCollection", "380", "VertexEndcapCollection", "380", "InnerTrackerBarrelCollection", "380", "InnerTrackerEndcapCollection", "380", "OuterTrackerBarrelCollection", "380", "OuterTrackerEndcapCollection", "380", "ECalBarrelCollection", "380", "ECalEndcapCollection", "380", "HCalBarrelCollection", "380", "HCalEndcapCollection", "380", "HCalRingCollection", "380", "YokeBarrelCollection", "380", "YokeEndcapCollection", "380", "LumiCalCollection", "380"],
                            "Delta_t": ["20"],
-                           "MCParticleCollectionName": ["MCParticle"],
+                           "MCParticleCollectionName": ["MCParticles"],
                            "MCPhysicsParticleCollectionName": ["MCPhysicsParticles"],
                            "NBunchtrain": ["20"],
                            "NumberBackground": ["1."],
@@ -517,7 +517,7 @@ Overlay365GeV.Parameters = {
                             "BackgroundFileNames": ["pairs_Z_sim.slcio"],
                             "Collection_IntegrationTimes": ["VertexBarrelCollection", "380", "VertexEndcapCollection", "380", "InnerTrackerBarrelCollection", "380", "InnerTrackerEndcapCollection", "380", "OuterTrackerBarrelCollection", "380", "OuterTrackerEndcapCollection", "380", "ECalBarrelCollection", "380", "ECalEndcapCollection", "380", "HCalBarrelCollection", "380", "HCalEndcapCollection", "380", "HCalRingCollection", "380", "YokeBarrelCollection", "380", "YokeEndcapCollection", "380", "LumiCalCollection", "380"],
                             "Delta_t": ["3396"],
-                            "MCParticleCollectionName": ["MCParticle"],
+                            "MCParticleCollectionName": ["MCParticles"],
                             "MCPhysicsParticleCollectionName": ["MCPhysicsParticles"],
                             "NBunchtrain": ["3"],
                             "NumberBackground": ["1."],
@@ -824,7 +824,7 @@ MyDDMarlinPandora["10"].Parameters = {
                                      "LCalCaloHitCollections": [],
                                      "LHCalCaloHitCollections": [],
                                      "LayersFromEdgeMaxRearDistance": ["250"],
-                                     "MCParticleCollections": ["MCParticle"],
+                                     "MCParticleCollections": ["MCParticles"],
                                      "MaxBarrelTrackerInnerRDistance": ["200"],
                                      "MaxClusterEnergyToApplySoftComp": ["200."],
                                      "MaxHCalHitHadronicEnergy": ["10000000."],
@@ -925,7 +925,7 @@ MyDDMarlinPandora["400"].Parameters = {
                                       "LCalCaloHitCollections": [],
                                       "LHCalCaloHitCollections": [],
                                       "LayersFromEdgeMaxRearDistance": ["250"],
-                                      "MCParticleCollections": ["MCParticle"],
+                                      "MCParticleCollections": ["MCParticles"],
                                       "MaxBarrelTrackerInnerRDistance": ["200"],
                                       "MaxClusterEnergyToApplySoftComp": ["200."],
                                       "MaxHCalHitHadronicEnergy": ["10000000."],
@@ -1167,7 +1167,7 @@ VertexFinder.Parameters = {
                            "BuildUpVertex.UseV0Selection": ["1"],
                            "BuildUpVertex.V0VertexCollectionName": ["BuildUpVertices_V0"],
                            "BuildUpVertexCollectionName": ["BuildUpVertices"],
-                           "MCPCollection": ["MCParticle"],
+                           "MCPCollection": ["MCParticles"],
                            "MCPFORelation": ["RecoMCTruthLink"],
                            "MagneticField": ["2.0"],
                            "PFOCollection": ["PFOsFromJets"],
@@ -1221,7 +1221,7 @@ VertexFinderUnconstrained.Parameters = {
                                         "BuildUpVertex.UseV0Selection": ["1"],
                                         "BuildUpVertex.V0VertexCollectionName": ["BuildUpVertices_V0_res"],
                                         "BuildUpVertexCollectionName": ["BuildUpVertices_res"],
-                                        "MCPCollection": ["MCParticle"],
+                                        "MCPCollection": ["MCParticles"],
                                         "MCPFORelation": ["RecoMCTruthLink"],
                                         "MagneticField": ["2.0"],
                                         "PFOCollection": ["TightSelectedPandoraPFOs"],
