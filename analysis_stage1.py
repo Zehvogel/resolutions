@@ -7,14 +7,17 @@ class RDFanalysis():
             .Alias("MCRecoAssociations1", "RecoMCTruthLink#1.index")
             .Alias("ReconstructedParticles", "PandoraPFOs")
             # plan for this stage: create new columns for reco and mc electrons
-            .Define("RP_MC_index",
-                    "ReconstructedParticle2MC::getRP2MC_index(MCRecoAssociations0, MCRecoAssociations1, ReconstructedParticles, MCParticles)")
+            .Define("RP_MC_p",
+                    "ReconstructedParticle2MC::getRP2MC_p(MCRecoAssociations0, MCRecoAssociations1, ReconstructedParticles, MCParticles)")
+            # not this easy because the NaNs will be inside the RVec :(
+            #.Define("RP_MC_p_clean", "std::isnan(RP_MC_p) ? -1 : RP_MC_p")
+
 
         )
         return df2
 
     def output():
         branchList = [
-                "MC_p",
+                "RP_MC_p",
         ]
         return branchList

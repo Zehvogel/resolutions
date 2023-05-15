@@ -410,6 +410,9 @@ Output_REC.Parameters = {
 # LCIO to EDM4hep converter
 lcioConvTool = Lcio2EDM4hepTool("lcio2EDM4hep")
 lcioConvTool.convertAll = True
+lcioConvTool.collNameMapping = {
+    "MCParticle": "MCParticles"
+}
 lcioConvTool.OutputLevel = DEBUG
 Output_REC.Lcio2EDM4hepTool=lcioConvTool
 
