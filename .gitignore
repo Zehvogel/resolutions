@@ -4,3 +4,4 @@ build
 sim_output
 *.root
 *.slcio
+Output

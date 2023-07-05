@@ -1,7 +1,8 @@
+ParticleList = ["mu", "e"]
 #ParticleList = ["mu", "e", "pi"]
-ParticleList = ["mu"]
-#ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
-ThetaList = ["10"]
+#ParticleList = ["mu"]
+ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
+#ThetaList = ["89"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
 
 processList = {f"REC_{particle}_{theta}deg_{momentum}GeV_1000evt_edm4hep":{"output":f"{particle}_{theta}deg_{momentum}GeV_1000evt"} for particle in ParticleList for theta in ThetaList for momentum in MomentumList}

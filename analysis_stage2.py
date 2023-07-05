@@ -1,7 +1,8 @@
+ParticleList = ["mu", "e"]
 #ParticleList = ["mu", "e", "pi"]
-ParticleList = ["mu"]
-#ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
-ThetaList = ["10"]
+#ParticleList = ["mu"]
+ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
+#ThetaList = ["89"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
 
 processList = {f"{particle}_{theta}deg_{momentum}GeV_1000evt":{} for particle in ParticleList for theta in ThetaList for momentum in MomentumList}
@@ -18,6 +19,8 @@ ROOT.gSystem.Load("/cvmfs/sw-nightlies.hsf.org/key4hep/releases/2023-05-30/x86_6
 ROOT.gROOT.ProcessLine(".include /cvmfs/sw-nightlies.hsf.org/key4hep/releases/2023-05-30/x86_64-almalinux9-gcc11.3.1-opt/ced/56f3bc90862e7bd4fa5657e638cceea50b368ed7=develop-lhxqn2/include")
 ROOT.gInterpreter.Declare("#include <marlinutil/HelixClass_double.h>")
 #END USER DEFINED CODE
+
+varList = ["pt", "d0", "z0", "phi0", "omega", "tanLambda", "p", "phi", "theta"]
 
 class RDFanalysis():
 
@@ -49,28 +52,21 @@ class RDFanalysis():
                .Define("true_phi", "true_pvec.Phi()")
                .Define("true_theta", "true_pvec.Theta()")
         )
+
+        for v in varList:
+            df2 = df2.Define(f"delta_{v}", f"reco_{v} - true_{v}")
+            df2 = df2.Filter(f"std::isfinite(delta_{v})")
+        if "phi0" in varList:
+            # correct phi wrap around
+            df2 = df2.Redefine("delta_phi0", "delta_phi0 < -ROOT::Math::Pi() ? delta_phi0 + 2 * ROOT::Math::Pi() : delta_phi0")
+
         return df2
 
     def output():
-        branchList = [
-            "reco_pt",
-            "reco_d0",
-            "reco_z0",
-            "reco_phi0",
-            "reco_omega",
-            "reco_tanLambda",
-            "reco_p",
-            "reco_phi",
-            "reco_theta",
-
-            "true_pt",
-            "true_d0",
-            "true_z0",
-            "true_phi0",
-            "true_omega",
-            "true_tanLambda",
-            "true_p",
-            "true_phi",
-            "true_theta",
-        ]
+        branchList = []
+        branchList += [f"reco_{v}" for v in varList]
+        branchList += [f"true_{v}" for v in varList]
+        branchList += [f"delta_{v}" for v in varList]
+        #branchList += [f"delta_{v}_min" for v in varList]
+        #branchList += [f"delta_{v}_max" for v in varList]
         return branchList
