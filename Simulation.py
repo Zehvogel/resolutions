@@ -25,7 +25,7 @@ def run(Particle, theta, momentum):
     command = [
         "ddsim",
         "--compactFile",
-        f"{LCGEO}/FCCee/compact/FCCee_o2_v02/FCCee_o2_v02.xml",
+        f"{LCGEO}/FCCee/compact/{DetectorModel}/{DetectorModel}.xml",
         "--outputFile", f"Output/SIM/SIM_{Particle}_{theta}deg_{momentum}GeV_1000evt.slcio",
         "--steeringFile", "CLICPerformance/fcceeConfig/fcc_steer.py",
         "--random.seed", "0123456789",
