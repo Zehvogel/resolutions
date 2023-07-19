@@ -15,7 +15,9 @@ print(f"-----> running {script_filename} with Detector Model = {DetectorModel}, 
 LCGEO = os.environ.get("LCGEO")
 
 # Define lists
-ParticleList = ["mu", "e", "pi"]
+#ParticleList = ["mu", "e", "pi"]
+#ParticleList = ["mu"]
+ParticleList = ["e"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 

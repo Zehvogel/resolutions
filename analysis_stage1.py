@@ -1,6 +1,7 @@
-ParticleList = ["mu", "e"]
+#ParticleList = ["mu", "e"]
 #ParticleList = ["mu", "e", "pi"]
 #ParticleList = ["mu"]
+ParticleList = ["e"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 #ThetaList = ["89"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
