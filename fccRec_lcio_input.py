@@ -36,7 +36,7 @@ InitDD4hep = MarlinProcessorWrapper("InitDD4hep")
 InitDD4hep.OutputLevel = WARNING
 InitDD4hep.ProcessorType = "InitializeDD4hep"
 InitDD4hep.Parameters = {
-                         "DD4hepXMLFile": [os.environ["LCGEO"]+"/FCCee/compact/FCCee_o1_v04/FCCee_o1_v04.xml"],
+                         "DD4hepXMLFile": [os.environ["LCGEO"]+"/FCCee/CLD/compact/FCCee_o1_v04/FCCee_o1_v04.xml"],
                          "EncodingStringParameter": ["GlobalTrackerReadoutID"]
                          }
 
@@ -50,7 +50,8 @@ VXDBarrelDigitiser.Parameters = {
                                  "SimTrackHitCollectionName": ["VertexBarrelCollection"],
                                  "SimTrkHitRelCollection": ["VXDTrackerHitRelations"],
                                  "SubDetectorName": ["Vertex"],
-                                 "TrackerHitCollectionName": ["VXDTrackerHits"]
+                                 "TrackerHitCollectionName": ["VXDTrackerHits"],
+                                 "ForceHitsOntoSurface": ["false"]
                                  }
 
 VXDEndcapDigitiser = MarlinProcessorWrapper("VXDEndcapDigitiser")
@@ -145,7 +146,37 @@ MyConformalTracking.Parameters = {
                                   "RetryTooManyTracks": ["false"],
                                   "SiTrackCollectionName": ["SiTracksCT"],
                                   "SortTreeResults": ["true"],
-                                  "Steps": ["[VXDBarrel]", "@Collections", ":", "VXDTrackerHits", "@Parameters", ":", "MaxCellAngle", ":", "0.01;", "MaxCellAngleRZ", ":", "0.01;", "Chi2Cut", ":", "100;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;", "@Flags", ":", "HighPTFit,", "VertexToTracker", "@Functions", ":", "CombineCollections,", "BuildNewTracks", "[VXDEncap]", "@Collections", ":", "VXDEndcapTrackerHits", "@Parameters", ":", "MaxCellAngle", ":", "0.01;", "MaxCellAngleRZ", ":", "0.01;", "Chi2Cut", ":", "100;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;", "@Flags", ":", "HighPTFit,", "VertexToTracker", "@Functions", ":", "CombineCollections,", "ExtendTracks", "[LowerCellAngle1]", "@Collections", ":", "VXDTrackerHits,", "VXDEndcapTrackerHits", "@Parameters", ":", "MaxCellAngle", ":", "0.05;", "MaxCellAngleRZ", ":", "0.05;", "Chi2Cut", ":", "100;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;HighPTCut:", "10.0;", "@Flags", ":", "HighPTFit,", "VertexToTracker,", "RadialSearch", "@Functions", ":", "CombineCollections,", "BuildNewTracks", "[LowerCellAngle2]", "@Collections", ":", "@Parameters", ":", "MaxCellAngle", ":", "0.1;", "MaxCellAngleRZ", ":", "0.1;", "Chi2Cut", ":", "2000;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;", "@Flags", ":", "HighPTFit,", "VertexToTracker,", "RadialSearch", "@Functions", ":", "BuildNewTracks,", "SortTracks", "[Tracker]", "@Collections", ":", "ITrackerHits,", "OTrackerHits,", "ITrackerEndcapHits,", "OTrackerEndcapHits", "@Parameters", ":", "MaxCellAngle", ":", "0.1;", "MaxCellAngleRZ", ":", "0.1;", "Chi2Cut", ":", "2000;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "1.0;", "@Flags", ":", "HighPTFit,", "VertexToTracker,", "RadialSearch", "@Functions", ":", "CombineCollections,", "ExtendTracks", "[Displaced]", "@Collections", ":", "VXDTrackerHits,", "VXDEndcapTrackerHits,", "ITrackerHits,", "OTrackerHits,", "ITrackerEndcapHits,", "OTrackerEndcapHits", "@Parameters", ":", "MaxCellAngle", ":", "0.1;", "MaxCellAngleRZ", ":", "0.1;", "Chi2Cut", ":", "1000;", "MinClustersOnTrack", ":", "5;", "MaxDistance", ":", "0.015;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;", "@Flags", ":", "OnlyZSchi2cut,", "RadialSearch", "@Functions", ":", "CombineCollections,", "BuildNewTracks"],
+                                  "Steps":
+                                  ["[VXDBarrel]",
+                                  "@Collections", ":", "VXDTrackerHits",
+                                  "@Parameters", ":", "MaxCellAngle", ":", "0.01;", "MaxCellAngleRZ", ":", "0.01;", "Chi2Cut", ":", "100;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;",
+                                  "@Flags", ":", "HighPTFit,", "VertexToTracker",
+                                  "@Functions", ":", "CombineCollections,", "BuildNewTracks",
+                                  "[VXDEncap]",
+                                  "@Collections", ":", "VXDEndcapTrackerHits",
+                                  "@Parameters", ":", "MaxCellAngle", ":", "0.01;", "MaxCellAngleRZ", ":", "0.01;", "Chi2Cut", ":", "100;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;",
+                                  "@Flags", ":", "HighPTFit,", "VertexToTracker",
+                                  "@Functions", ":", "CombineCollections,", "ExtendTracks",
+                                  "[LowerCellAngle1]",
+                                  "@Collections", ":", "VXDTrackerHits,", "VXDEndcapTrackerHits",
+                                  "@Parameters", ":", "MaxCellAngle", ":", "0.05;", "MaxCellAngleRZ", ":", "0.05;", "Chi2Cut", ":", "100;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;",
+                                  "@Flags", ":", "HighPTFit,", "VertexToTracker,", "RadialSearch",
+                                  "@Functions", ":", "CombineCollections,", "BuildNewTracks",
+                                  "[LowerCellAngle2]",
+                                  "@Collections", ":",
+                                  "@Parameters", ":", "MaxCellAngle", ":", "0.1;", "MaxCellAngleRZ", ":", "0.1;", "Chi2Cut", ":", "2000;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;",
+                                  "@Flags", ":", "HighPTFit,", "VertexToTracker,", "RadialSearch",
+                                  "@Functions", ":", "BuildNewTracks,", "SortTracks",
+                                  "[Tracker]",
+                                  "@Collections", ":", "ITrackerHits,", "OTrackerHits,", "ITrackerEndcapHits,", "OTrackerEndcapHits",
+                                  "@Parameters", ":", "MaxCellAngle", ":", "0.1;", "MaxCellAngleRZ", ":", "0.1;", "Chi2Cut", ":", "2000;", "MinClustersOnTrack", ":", "4;", "MaxDistance", ":", "0.03;", "SlopeZRange:", "10.0;", "HighPTCut:", "1.0;",
+                                  "@Flags", ":", "HighPTFit,", "VertexToTracker,", "RadialSearch",
+                                  "@Functions", ":", "CombineCollections,", "ExtendTracks",
+                                  "[Displaced]",
+                                  "@Collections", ":", "VXDTrackerHits,", "VXDEndcapTrackerHits,", "ITrackerHits,", "OTrackerHits,", "ITrackerEndcapHits,", "OTrackerEndcapHits",
+                                  "@Parameters", ":", "MaxCellAngle", ":", "0.1;", "MaxCellAngleRZ", ":", "0.1;", "Chi2Cut", ":", "1000;", "MinClustersOnTrack", ":", "5;", "MaxDistance", ":", "0.015;", "SlopeZRange:", "10.0;", "HighPTCut:", "10.0;",
+                                  "@Flags", ":", "OnlyZSchi2cut,", "RadialSearch",
+                                  "@Functions", ":", "CombineCollections,", "BuildNewTracks"],
                                   "ThetaRange": ["0.05"],
                                   "TooManyTracks": ["100000"],
                                   "TrackerHitCollectionNames": ["VXDTrackerHits", "VXDEndcapTrackerHits", "ITrackerHits", "OTrackerHits", "ITrackerEndcapHits", "OTrackerEndcapHits"],
@@ -190,7 +221,7 @@ MyClicEfficiencyCalculator = MarlinProcessorWrapper("MyClicEfficiencyCalculator"
 MyClicEfficiencyCalculator.OutputLevel = WARNING
 MyClicEfficiencyCalculator.ProcessorType = "ClicEfficiencyCalculator"
 MyClicEfficiencyCalculator.Parameters = {
-                                         "MCParticleCollectionName": ["MCParticles"],
+                                         "MCParticleCollectionName": ["MCParticle"],
                                          "MCParticleNotReco": ["MCParticleNotReco"],
                                          "MCPhysicsParticleCollectionName": ["MCPhysicsParticles"],
                                          "TrackCollectionName": ["SiTracks_Refitted"],

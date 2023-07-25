@@ -1,6 +1,6 @@
 from Gaudi.Configuration import *
 
-from Configurables import LcioEvent, k4DataSvc, MarlinProcessorWrapper
+from Configurables import LcioEvent, k4LegacyDataSvc, MarlinProcessorWrapper
 from k4MarlinWrapper.parseConstants import *
 algList = []
 
@@ -15,7 +15,7 @@ parseConstants(CONSTANTS)
 # For converters
 from Configurables import ToolSvc, Lcio2EDM4hepTool, EDM4hep2LcioTool
 
-evtsvc = k4DataSvc('EventDataSvc')
+evtsvc = k4LegacyDataSvc('EventDataSvc')
 
 read = LcioEvent()
 read.OutputLevel = WARNING
@@ -776,7 +776,7 @@ MyDDMarlinPandora["10"].Parameters = {
                                      "D0UnmatchedVertexTrackCut": ["5"],
                                      "DigitalMuonHits": ["0"],
                                      "ECalBarrelNormalVector": ["0", "0", "1"],
-                                     "ECalCaloHitCollections": ["ECALBarrel", "ECALEndcap", "ECALOther"],
+                                     "ECalCaloHitCollections": ["ECALBarrel", "ECALEndcap"],
                                      "ECalMipThreshold": ["0.5"],
                                      "ECalScMipThreshold": ["0"],
                                      "ECalScToEMGeVCalibration": ["1"],
@@ -1229,8 +1229,8 @@ VertexFinderUnconstrained.Parameters = {
                                         }
 
 # Write output to EDM4hep
-from Configurables import PodioOutput
-out = PodioOutput("PodioOutput", filename = "my_output.root")
+from Configurables import PodioLegacyOutput
+out = PodioLegacyOutput("PodioOutput", filename = "my_output.root")
 out.outputCommands = ["keep *"]
 
 
