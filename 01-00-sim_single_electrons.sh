@@ -11,7 +11,7 @@ mkdir sim_output || true
 # even newer because it also has the fix for TrackerEndcapSupport...
 #COMPACT_FILE=$LCGEO/FCCee/compact/FCCee_o2_v03/FCCee_o2_v03.xml
 # used for CLD det note (says the note)
-COMPACT_FILE=$LCGEO/FCCee/compact/FCCee_o1_v04/FCCee_o1_v04.xml
+COMPACT_FILE=$LCGEO/FCCee/CLD/compact/FCCee_o1_v04/FCCee_o1_v04.xml
 # latest with bigger beampipe, and fixed TrackerEndcapSupport
 #COMPACT_FILE=$LCGEO/FCCee/compact/FCCee_o1_v05/FCCee_o1_v05.xml
 

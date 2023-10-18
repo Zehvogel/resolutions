@@ -93,8 +93,14 @@ for p in processList:
     c = ROOT.TCanvas()
     c.Print(f"{fname}[")
     for v in varList:
-        f = ROOT.TF1(f"f_{p}_{v}", "gaus", var_low[p][v], var_high[p][v])
-        h[p][v].Fit(f, "RQ")
+        f = None
+        if (p.startswith("e")):
+            #f = ROOT.TF1(f"f_{p}_{v}", "ROOT::Math::crystalball_function(x, [0], [1], [2], [3])", var_low[p][v], var_high[p][v])
+            f = ROOT.TF1(f"f_{p}_{v}", "gaus", var_low[p][v], var_high[p][v])
+        else:
+            f = ROOT.TF1(f"f_{p}_{v}", "gaus", var_low[p][v], var_high[p][v])
+
+        h[p][v].Fit(f, "RV")
         h[p][v].Draw()
         h[p][v].Write()
         #c.Print(fname)
