@@ -20,7 +20,7 @@ args = [(Particle, theta, momentum) for Particle in ParticleList for momentum in
 particles = [arg[0] for arg in args]
 thetas = [arg[1] for arg in args]
 energies = [arg[2] for arg in args]
-outputFiles = [f"SIM_{arg[0]}_{arg[1]}deg_{arg[2]}GeV_1000evt.slcio" for arg in args]
+outputFiles = [f"SIM_{arg[0]}_{arg[1]}deg_{arg[2]}GeV_1000evt.edm4hep.root" for arg in args]
 
 job = UserJob()
 job.setSplitDoNotAlterOutputFilename()
@@ -36,7 +36,7 @@ ddsim = DDSim()
 ddsim.setVersion('key4hep_nightly')
 ddsim.setDetectorModel('CLD_o2_v05')
 ddsim.setNumberOfEvents(1000)
-ddsim.setSteeringFile("CLICPerformance/fcceeConfig/fcc_steer.py")
+ddsim.setSteeringFile("CLDConfig/CLDConfig/cld_steer.py")
 # 😠😠😠
 #ddsim.setEnergy("%(energy)s")
 # the named placeholder '%(particle)s' has the same name as the first argument of setSplitParameter
