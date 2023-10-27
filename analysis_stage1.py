@@ -1,7 +1,7 @@
 #ParticleList = ["mu", "e"]
 #ParticleList = ["mu", "e", "pi"]
 #ParticleList = ["mu"]
-ParticleList = ["e"]
+ParticleList = ["e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 #ThetaList = ["89"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
@@ -10,23 +10,33 @@ processList = {f"REC_{particle}_{theta}deg_{momentum}GeV_1000evt_edm4hep":{"outp
 #print(processList)
 outputDir = "Output/stage1"
 
-inputDir = "Output/REC"
+# inputDir = "Output/REC"
+# FCCAnalyses automatically rewrites this to access eos via root:
+inputDir = "/eos/experiment/clicdp/grid/ilc/user/L/LReichenbac/resolutions/rec_e4h"
 
 #nCPUS = 6
 nCPUS = 1
 
 #USER DEFINED CODE
 import ROOT
+ROOT.gInterpreter.Declare("#include <marlinutil/MarlinUtil.h>")
 ROOT.gInterpreter.Declare("""
-ROOT::VecOps::RVec<int> MCTruthTrackIndex(ROOT::VecOps::RVec<int> trackIndex,
-                                          ROOT::VecOps::RVec<int> mcIndex,
-                                          ROOT::VecOps::RVec<edm4hep::MCParticleData> mc)
+ROOT::VecOps::RVec<int> MCTruthTrackIndex_full(ROOT::VecOps::RVec<int> trackIndex,
+                                               ROOT::VecOps::RVec<int> mcIndex,
+                                               ROOT::VecOps::RVec<float> weight,
+                                               ROOT::VecOps::RVec<edm4hep::MCParticleData> mc)
 {
     ROOT::VecOps::RVec<int> res;
     res.resize(mc.size(), -1);
+    ROOT::VecOps::RVec<float> trackWeights;
+    res.resize(mc.size(), 0.0);
 
     for (size_t i = 0; i < trackIndex.size(); i++) {
-        res[mcIndex[i]] = trackIndex[i];
+        float trackWeight = MarlinUtil::getTrackWeight(weight[i]);
+        if (trackWeight > trackWeights[mcIndex[i]]) {
+            trackWeights[mcIndex[i]] = trackWeight;
+            res[mcIndex[i]] = trackIndex[i];
+        }
     }
     return res;
 }
@@ -37,12 +47,12 @@ class RDFanalysis():
 
     def analysers(df):
         df2 = (df
-            .Alias("MCTrackAssociations0", "MCTruthSiTracksLink#0.index")
-            .Alias("MCTrackAssociations1", "MCTruthSiTracksLink#1.index")
+            .Alias("MCTrackAssociations0", "_MCTruthSiTracksLink_sim.index")
+            .Alias("MCTrackAssociations1", "_MCTruthSiTracksLink_rec.index")
             .Define("GunParticle_index", "MCParticles.generatorStatus == 1")
             .Define("GunParticle", "MCParticles[GunParticle_index][0]")
-            .Define("trackStates_IP", "SiTracks_Refitted_1[SiTracks_Refitted_1.location == 1]")
-            .Define("MC2TrackIndex", "MCTruthTrackIndex(MCTrackAssociations0, MCTrackAssociations1, MCParticles)")
+            .Define("trackStates_IP", "_SiTracks_Refitted_trackStates[_SiTracks_Refitted_trackStates.location == 1]")
+            .Define("MC2TrackIndex", "MCTruthTrackIndex_full(MCTrackAssociations0, MCTrackAssociations1, MCTruthSiTracksLink.weight, MCParticles)")
             .Define("GunParticleTrackIndex", "MC2TrackIndex[GunParticle_index][0]")
             .Define("GunParticleTSIP", "trackStates_IP[GunParticleTrackIndex]")
         )

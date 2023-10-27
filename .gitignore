@@ -5,3 +5,5 @@ sim_output
 *.root
 *.slcio
 Output
+old_Output
+*.tar.gz
