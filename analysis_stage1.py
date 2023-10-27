@@ -19,7 +19,6 @@ nCPUS = 1
 
 #USER DEFINED CODE
 import ROOT
-ROOT.gInterpreter.Declare("#include <marlinutil/MarlinUtil.h>")
 ROOT.gInterpreter.Declare("""
 ROOT::VecOps::RVec<int> MCTruthTrackIndex_full(ROOT::VecOps::RVec<int> trackIndex,
                                                ROOT::VecOps::RVec<int> mcIndex,
@@ -29,10 +28,10 @@ ROOT::VecOps::RVec<int> MCTruthTrackIndex_full(ROOT::VecOps::RVec<int> trackInde
     ROOT::VecOps::RVec<int> res;
     res.resize(mc.size(), -1);
     ROOT::VecOps::RVec<float> trackWeights;
-    res.resize(mc.size(), 0.0);
+    trackWeights.resize(mc.size(), 0.0);
 
     for (size_t i = 0; i < trackIndex.size(); i++) {
-        float trackWeight = MarlinUtil::getTrackWeight(weight[i]);
+        float trackWeight = weight[i];
         if (trackWeight > trackWeights[mcIndex[i]]) {
             trackWeights[mcIndex[i]] = trackWeight;
             res[mcIndex[i]] = trackIndex[i];
