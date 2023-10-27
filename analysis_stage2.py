@@ -1,8 +1,9 @@
 #ParticleList = ["mu", "e"]
 #ParticleList = ["mu", "e", "pi"]
 #ParticleList = ["mu"]
-ParticleList = ["e"]
-ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
+ParticleList = ["e-"]
+# ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
+ThetaList = ["10", "20"]
 #ThetaList = ["89"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
 
@@ -16,8 +17,8 @@ nCPUS = 1
 
 #USER DEFINED CODE
 import ROOT
-ROOT.gSystem.Load("/cvmfs/sw-nightlies.hsf.org/key4hep/releases/2023-05-30/x86_64-almalinux9-gcc11.3.1-opt/marlinutil/4bba4d10fc1c448213e83251f689370fc2d43c9e=develop-zhkc6e/lib/libMarlinUtil.so")
-ROOT.gROOT.ProcessLine(".include /cvmfs/sw-nightlies.hsf.org/key4hep/releases/2023-05-30/x86_64-almalinux9-gcc11.3.1-opt/ced/56f3bc90862e7bd4fa5657e638cceea50b368ed7=develop-lhxqn2/include")
+# ROOT.gSystem.Load("/cvmfs/sw-nightlies.hsf.org/key4hep/releases/2023-05-30/x86_64-almalinux9-gcc11.3.1-opt/marlinutil/4bba4d10fc1c448213e83251f689370fc2d43c9e=develop-zhkc6e/lib/libMarlinUtil.so")
+# ROOT.gROOT.ProcessLine(".include /cvmfs/sw-nightlies.hsf.org/key4hep/releases/2023-05-30/x86_64-almalinux9-gcc11.3.1-opt/ced/56f3bc90862e7bd4fa5657e638cceea50b368ed7=develop-lhxqn2/include")
 ROOT.gInterpreter.Declare("#include <marlinutil/HelixClass_double.h>")
 #END USER DEFINED CODE
 
