@@ -46,6 +46,7 @@ gaudi.setVersion("key4hep_nightly")
 gaudi.setSteeringFile("CLDConfig/CLDConfig/CLDReconstruction.py")
 gaudi.setInputFileFlag("--inputFiles")
 gaudi.setOutputFileFlag("")
+# TODO: turn on --trackingOnly
 gaudi.setExtraCLIArguments(
     # "--inputFiles=%(inputFile)s "
     "--outputBasename=%(outputBasename)s "

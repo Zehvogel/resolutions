@@ -15,7 +15,7 @@ ROOT.gStyle.SetMarkerStyle(33)
 
 #ParticleList = ["mu", "e", "pi"]
 #ParticleList = ["mu"]
-ParticleList = ["mu", "e"]
+ParticleList = ["mu-", "e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 #ThetaList = ["80", "89"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
@@ -80,6 +80,7 @@ mean_err = {}
 sigma = {}
 sigma_err = {}
 for p in processList:
+    print(p)
     fname = f"{outputDir}/{p}.pdf"
     dir = file.Get(p)
     mean[p] = {}
