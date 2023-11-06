@@ -45,7 +45,8 @@ processList = {
 }
 #print(processList)
 
-detectorModel = "CLD_o2_v05"
+# detectorModel = "CLD_o2_v05"
+detectorModel = "FCCee_o1_v04"
 
 outputDir = f"Output/final/{detectorModel}"
 

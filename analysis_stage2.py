@@ -11,7 +11,8 @@ MomentumList = ["1", "2", "5", "10", "20", "50", "100"]
 processList = {f"{particle}_{theta}deg_{momentum}GeV_1000evt":{} for particle in ParticleList for theta in ThetaList for momentum in MomentumList}
 #print(processList)
 
-detectorModel = "CLD_o2_v05"
+# detectorModel = "CLD_o2_v05"
+detectorModel = "FCCee_o1_v04"
 
 outputDir = f"Output/stage2/{detectorModel}"
 

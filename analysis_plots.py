@@ -52,7 +52,8 @@ processList = {
     for momentum in MomentumList
 }
 
-detectorModel = "CLD_o2_v05"
+# detectorModel = "CLD_o2_v05"
+detectorModel = "FCCee_o1_v04"
 
 outputDir = f"Output/plots/{detectorModel}"
 
@@ -86,7 +87,7 @@ mean_err = {}
 sigma = {}
 sigma_err = {}
 for p in processList:
-    print(p)
+    # print(p)
     fname = f"{outputDir}/{p}.pdf"
     dir = file.Get(p)
     mean[p] = {}
@@ -102,6 +103,7 @@ for p in processList:
         sigma_err[p][v] = f.GetParError(2)
 
 
+outfile = ROOT.TFile(f"{outputDir}/plots.root", "recreate")
 # combined plots
 def combined_plots(mode, particle):
     dist = {}
@@ -109,10 +111,13 @@ def combined_plots(mode, particle):
     c = ROOT.TCanvas()
     fname = f"{outputDir}/{particle}_{mode}_dist.pdf"
     c.Print(f"{fname}[")
+    dir = outfile.mkdir(f"{particle}_{mode}")
+    dir.cd()
     legend = {}
     for v in varList:
+        c.SetName(v)
         legend[v] = ROOT.TLegend(0.6, 0.7, 0.8, 0.9)
-        dist[v] = ROOT.TMultiGraph()
+        dist[v] = ROOT.TMultiGraph(v, "")
         dist_mode[v] = {}
         outer_list = None
         inner_list = None
@@ -156,9 +161,14 @@ def combined_plots(mode, particle):
         c.SetLogy()
         c.SaveAs(f"{outputDir}/{particle}_{mode}_{v}.pdf")
         c.Print(fname)
+        c.Write()
+        dist[v].Write()
 
     c.Print(f"{fname}]")
+
 
 for p in ParticleList:
     combined_plots("p", p)
     combined_plots("t", p)
+
+outfile.Close()
