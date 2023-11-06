@@ -5,13 +5,17 @@ ParticleList = ["mu-", "e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 # ThetaList = ["10", "20"]
 # ThetaList = ["89"]
-MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
+# MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
+MomentumList = ["1", "2", "5", "10", "20", "50", "100"]
 
 processList = {f"{particle}_{theta}deg_{momentum}GeV_1000evt":{} for particle in ParticleList for theta in ThetaList for momentum in MomentumList}
 #print(processList)
-outputDir = "Output/stage2"
 
-inputDir = "Output/stage1"
+detectorModel = "CLD_o2_v05"
+
+outputDir = f"Output/stage2/{detectorModel}"
+
+inputDir = f"Output/stage1/{detectorModel}"
 
 nCPUS = 1
 

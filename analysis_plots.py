@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import ROOT
-from math import ceil, floor
+import os
 
 ROOT.gROOT.SetBatch(True)
 
@@ -18,7 +18,8 @@ ROOT.gStyle.SetMarkerStyle(33)
 ParticleList = ["mu-", "e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 #ThetaList = ["80", "89"]
-MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
+# MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
+MomentumList = ["1", "2", "5", "10", "20", "50", "100"]
 stackMomentumList = ["1", "10", "100"]
 stackThetaList = ["10", "30", "50", "70", "89"]
 
@@ -50,10 +51,15 @@ processList = {
     for theta in ThetaList
     for momentum in MomentumList
 }
-#print(processList)
-outputDir = "Output/plots"
 
-inputDir = "Output/final"
+detectorModel = "CLD_o2_v05"
+
+outputDir = f"Output/plots/{detectorModel}"
+
+if not os.path.exists(outputDir):
+    os.makedirs(outputDir)
+
+inputDir = f"Output/final/{detectorModel}"
 
 residualList = ["d0", "z0", "phi0", "omega", "tanLambda", "phi", "theta"]
 specialList = ["pt", "p"]

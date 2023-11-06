@@ -38,10 +38,10 @@ void CLICdpStyle()
   clicdpStyle->SetPadColor(kWhite);
   clicdpStyle->SetFillColor(10);
   clicdpStyle->SetTitleFillColor(kWhite);
-  
-  
+
+
    /* SetPaperSize wants width & height in cm: A4 is 20,26 & US is 20,24*/
-   clicdpStyle->SetPaperSize(20, 26); 
+   clicdpStyle->SetPaperSize(20, 26);
    /* No yellow border around histogram*/
    clicdpStyle->SetDrawBorder(0);
    /* remove border of canvas*/
@@ -50,20 +50,20 @@ void CLICdpStyle()
    clicdpStyle->SetPadBorderMode(0);
    clicdpStyle->SetFrameBorderMode(0);
    clicdpStyle->SetLegendBorderSize(0);
-  
+
    /* default text size*/
    clicdpStyle->SetTextSize(0.05);
    clicdpStyle->SetTitleSize(0.07,"xyz");
    clicdpStyle->SetLabelSize(0.06,"xyz");
    /* title offset: distance between given text and axis, here x,y,z*/
    clicdpStyle->SetLabelOffset(0.015,"xyz");
-   clicdpStyle->SetTitleOffset(1.2,"yz"); //equivalent to: clicdpStyle->SetTitleYOffset(1.2);
+   clicdpStyle->SetTitleOffset(1.3,"yz"); //equivalent to: clicdpStyle->SetTitleYOffset(1.2);
    clicdpStyle->SetTitleOffset(1.0,"x");
 
 
 
    /* Use visible font for all text*/
-   int font = 42; 
+   int font = 42;
    clicdpStyle->SetTitleFont(font);
    clicdpStyle->SetTitleFontSize(0.06);
    clicdpStyle->SetStatFont(font);
@@ -77,19 +77,19 @@ void CLICdpStyle()
 
    /* big marker points*/
    clicdpStyle->SetMarkerStyle(1);
-   clicdpStyle->SetLineWidth(2);  
+   clicdpStyle->SetLineWidth(2);
    clicdpStyle->SetMarkerSize(1.2);
    /*set palette in 2d histogram to nice and colorful one*/
-   clicdpStyle->SetPalette(1,0); 
+   clicdpStyle->SetPalette(1,0);
 
    /*No title for histograms*/
    clicdpStyle->SetOptTitle(0);
    /* show the errors on the stat box */
-   clicdpStyle->SetOptStat(0); 
+   clicdpStyle->SetOptStat(0);
    /* show errors on fitted parameters*/
-   clicdpStyle->SetOptFit(0); 
+   clicdpStyle->SetOptFit(0);
    /* number of decimals used for errors*/
-   clicdpStyle->SetEndErrorSize(5);   
+   clicdpStyle->SetEndErrorSize(5);
 
    /* set line width to 2 by default so that histograms are visible when printed small
       idea: emphasize the data, not the frame around*/
@@ -104,15 +104,15 @@ void CLICdpStyle()
    clicdpStyle->SetPadBottomMargin(0.18);
    clicdpStyle->SetPadTopMargin(0.08);
    clicdpStyle->SetPadRightMargin(0.08);
-   clicdpStyle->SetPadLeftMargin(0.17);
-   
+   clicdpStyle->SetPadLeftMargin(0.19);
+
    //set the number of divisions to show
    clicdpStyle->SetNdivisions(506, "xy");
-   
+
    //turn off xy grids
    clicdpStyle->SetPadGridX(0);
    clicdpStyle->SetPadGridY(0);
-   
+
    //set the tick mark style
    clicdpStyle->SetPadTickX(1);
    clicdpStyle->SetPadTickY(1);
@@ -128,9 +128,9 @@ void CLICdpStyle()
 /*       draw legend for 2 histos on the same plot                     */
 /*                                                                     */
 /***********************************************************************/
-void Draw2Legend(TH1 *histo1, 
+void Draw2Legend(TH1 *histo1,
                  TH1 *histo2,
-                 const Char_t *label1, 
+                 const Char_t *label1,
                  const Char_t *label2,
                  const Char_t *header="")
 {
@@ -145,16 +145,16 @@ void Draw2Legend(TH1 *histo1,
   legend->SetTextSize(0.1);
   legend->SetTextSize(0.06);
   legend->SetTextFont(42);
-  
-  TLegendEntry* entry1 = legend->AddEntry(histo1,label1,"LPF");  
+
+  TLegendEntry* entry1 = legend->AddEntry(histo1,label1,"LPF");
   entry1->SetTextColor(histo1->GetLineColor());
-  
+
   TLegendEntry* entry2 = legend->AddEntry(histo2,label2,"LPF");
   entry2->SetTextColor(histo2->GetLineColor());
 
-  if (std::string(header) != "") legend->SetHeader(header); 
+  if (std::string(header) != "") legend->SetHeader(header);
 
-  legend->SetFillColor(kWhite); 
+  legend->SetFillColor(kWhite);
   legend->Draw();
 
   gPad->Update();
@@ -165,20 +165,20 @@ void Draw2Legend(TH1 *histo1,
 /*       draw legend for 7 histos on the same plot                     */
 /*                                                                     */
 /***********************************************************************/
-void Draw7Legend(TGraph *histo1, 
+void Draw7Legend(TGraph *histo1,
                  TGraph *histo2,
                  TGraph *histo3,
                  TGraph *histo4,
                  TGraph *histo5,
                  TGraph *histo6,
                  TGraph *histo7,
-		 const Char_t *label1, 
+		 const Char_t *label1,
                  const Char_t *label2,
-		 const Char_t *label3, 
+		 const Char_t *label3,
                  const Char_t *label4,
-		 const Char_t *label5, 
+		 const Char_t *label5,
                  const Char_t *label6,
-		 const Char_t *label7, 
+		 const Char_t *label7,
                  const Char_t *header="")
 {
 
@@ -187,10 +187,10 @@ void Draw7Legend(TGraph *histo1,
   legend->SetTextSize(0.1);
   legend->SetTextSize(0.1);
   legend->SetTextFont(42);
-  
-  TLegendEntry* entry1 = legend->AddEntry(histo1,label1,"L");  
+
+  TLegendEntry* entry1 = legend->AddEntry(histo1,label1,"L");
   entry1->SetTextColor(histo1->GetLineColor());
-  
+
   TLegendEntry* entry2 = legend->AddEntry(histo2,label2,"L");
   entry2->SetTextColor(histo2->GetLineColor());
 
@@ -209,9 +209,9 @@ void Draw7Legend(TGraph *histo1,
   TLegendEntry* entry7 = legend->AddEntry(histo7,label7,"L");
   entry7->SetTextColor(histo7->GetLineColor());
 
-  if (std::string(header) != "") legend->SetHeader(header); 
+  if (std::string(header) != "") legend->SetHeader(header);
 
-  legend->SetFillColor(kWhite); 
+  legend->SetFillColor(kWhite);
   legend->Draw();
 
   gPad->Update();
@@ -255,7 +255,7 @@ bool Draw2StatsBoxes(TH1 *histo1, TH1 *histo2)
   statsh2->SetX2NDC(0.92);
   statsh2->SetY2NDC(0.67);
   statsh2->Draw();
-  
+
   return true;
 }
 
@@ -268,7 +268,7 @@ void CLICdpLabel(std::string status){
 
 // void CLICdpLabel(Double_t x=0.20, Double_t y=0.86, std::string status="work in progress", Color_t color=kBlack){
 
-//   TLatex l; 
+//   TLatex l;
 //   l.SetNDC();
 //   l.SetTextFont(42);
 //   l.SetTextColor(color);
@@ -277,7 +277,7 @@ void CLICdpLabel(std::string status){
 //   std::string label = std::string("CLICdp ");
 //   l.DrawLatex(x,y,label.c_str());
 
-//   TLatex l2; 
+//   TLatex l2;
 //   l2.SetNDC();
 //   l2.SetTextFont(42);
 //   l2.SetTextColor(color);
@@ -293,7 +293,7 @@ void CLICdpLabel(std::string status){
 
 void CLICdpLabel(Double_t x, Double_t y, std::string status, Color_t color){
 
-  TLatex l; 
+  TLatex l;
   l.SetNDC();
   l.SetTextFont(42);
   l.SetTextColor(color);
@@ -302,7 +302,7 @@ void CLICdpLabel(Double_t x, Double_t y, std::string status, Color_t color){
   std::string label = std::string("CLICdp ");
   l.DrawLatex(x,y,label.c_str());
 
-  TLatex l2; 
+  TLatex l2;
   l2.SetNDC();
   l2.SetTextFont(42);
   l2.SetTextColor(color);

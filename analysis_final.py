@@ -2,6 +2,7 @@
 import ROOT
 from math import ceil, floor
 import numpy as np
+import os
 
 ROOT.gROOT.SetBatch(True)
 
@@ -18,7 +19,8 @@ ParticleList = ["mu-", "e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 # ThetaList = ["10", "20"]
 # ThetaList = ["89"]
-MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
+# MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
+MomentumList = ["1", "2", "5", "10", "20", "50", "100"]
 stackMomentumList = ["1", "10", "100"]
 stackThetaList = ["10", "30", "50", "70", "89"]
 
@@ -42,9 +44,15 @@ processList = {
     for momentum in MomentumList
 }
 #print(processList)
-outputDir = "Output/final"
 
-inputDir = "Output/stage2"
+detectorModel = "CLD_o2_v05"
+
+outputDir = f"Output/final/{detectorModel}"
+
+if not os.path.exists(outputDir):
+    os.makedirs(outputDir)
+
+inputDir = f"Output/stage2/{detectorModel}"
 
 residualList = ["d0", "z0", "phi0", "omega", "tanLambda", "phi", "theta"]
 specialList = ["pt", "p"]
@@ -96,7 +104,7 @@ for p in processList:
             low = var_low[p][v]
             high = var_high[p][v]
             dist = high - low
-            special_bins = make_bins([low, low + 0.7 * dist, low + 0.8 * dist, low + 0.9 * dist, high], [1, 2, 3, 45])
+            special_bins = make_bins([low, low + 0.7 * dist, low + 0.8 * dist, low + 0.9 * dist, high], [1, 2, 3, 25])
             bins = (len(special_bins) - 1, np.asarray(special_bins))
         h[p][v] = (df[p]
                    .Filter(f"{v} > {var_low[p][v]} && {v} < {var_high[p][v]}")

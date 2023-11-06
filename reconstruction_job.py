@@ -24,8 +24,8 @@ outputBasenames = [f"REC_{arg[0]}_{arg[1]}deg_{arg[2]}GeV_1000evt" for arg in ar
 outputFiles = [[f"{name}_aida.root", f"{name}_edm4hep.root"] for name in outputBasenames]
 inputFiles = [f"SIM_{arg[0]}_{arg[1]}deg_{arg[2]}GeV_1000evt.edm4hep.root" for arg in args]
 
-# TODO: use
-detectorModel = "CLD_o2_v05"
+# detectorModel = "CLD_o2_v05"
+detectorModel = "FCCee_o1_v04"
 detectorPath = f"$K4GEO/FCCee/CLD/compact/{detectorModel}/{detectorModel}.xml"
 
 
@@ -53,8 +53,9 @@ gaudi.setOutputFileFlag("")
 gaudi.setExtraCLIArguments(
     # "--inputFiles=%(inputFile)s "
     "--outputBasename=%(outputBasename)s "
-    "-n 1000"
-    f"geoservice.detectors={detectorPath}"
+    "-n 1000 "
+    f"--GeoSvc.detectors={detectorPath} "
+    "--trackingOnly"
     )
 
 job.append(gaudi)
