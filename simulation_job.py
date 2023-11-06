@@ -22,6 +22,8 @@ thetas = [arg[1] for arg in args]
 energies = [arg[2] for arg in args]
 outputFiles = [f"SIM_{arg[0]}_{arg[1]}deg_{arg[2]}GeV_1000evt.edm4hep.root" for arg in args]
 
+detectorModel = "CLD_o2_v05"
+
 job = UserJob()
 job.setSplitDoNotAlterOutputFilename()
 job.setName('DDSimSingleParticle_%n')
@@ -29,12 +31,12 @@ job.setSplitParameter('particle', particles)
 job.setSplitParameter('energy', energies)
 job.setSplitParameter('theta', thetas)
 job.setSplitParameter('outputFile', outputFiles)
-job.setSplitOutputData(outputFiles, 'resolutions/sim', 'CERN-DST-EOS')
+job.setSplitOutputData(outputFiles, f'resolutions/sim/{detectorModel}', 'CERN-DST-EOS')
 job.setOutputSandbox('*.log')
 
 ddsim = DDSim()
 ddsim.setVersion('key4hep_nightly')
-ddsim.setDetectorModel('CLD_o2_v05')
+ddsim.setDetectorModel(detectorModel)
 ddsim.setNumberOfEvents(1000)
 ddsim.setSteeringFile("CLDConfig/CLDConfig/cld_steer.py")
 # 😠😠😠
