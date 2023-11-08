@@ -8,16 +8,16 @@ ROOT.gROOT.LoadMacro("CLICdpStyle.C")
 ROOT.CLICdpStyle()
 
 ROOT.gStyle.SetOptFit(1111)
-#ROOT.gStyle.SetPalette(ROOT.kRainBow)
+# ROOT.gStyle.SetPalette(ROOT.kRainBow)
 ROOT.gStyle.SetMarkerSize(2)
 ROOT.gStyle.SetMarkerStyle(33)
-#ROOT.gStyle.SetMarkerStyle(ROOT.kDot)
+# ROOT.gStyle.SetMarkerStyle(ROOT.kDot)
 
-#ParticleList = ["mu", "e", "pi"]
-#ParticleList = ["mu"]
+# ParticleList = ["mu", "e", "pi"]
+# ParticleList = ["mu"]
 ParticleList = ["mu-", "e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
-#ThetaList = ["80", "89"]
+# ThetaList = ["80", "89"]
 # MomentumList = ["1", "2", "5", "10", "20", "50", "100", "200"]
 MomentumList = ["1", "2", "5", "10", "20", "50", "100"]
 stackMomentumList = ["1", "10", "100"]
@@ -28,8 +28,10 @@ title_string = {
     "t": "#theta [#circ]",
 }
 
+
 def pname(particle, theta, momentum):
     return f"{particle}_{theta}deg_{momentum}GeV_1000evt"
+
 
 unit_scale = {
     "delta_d0": 1e3,
@@ -37,8 +39,8 @@ unit_scale = {
     "delta_phi0": 1.0,
     "delta_omega": 1.0,
     "delta_tanLambda": 1.0,
-    #"delta_phi": 17.4533,
-    #"delta_theta": 17.4533,
+    # "delta_phi": 17.4533,
+    # "delta_theta": 17.4533,
     "delta_phi": 1e3,
     "delta_theta": 1e3,
     "sdelta_pt": 1.0,
@@ -65,8 +67,7 @@ inputDir = f"Output/final/{detectorModel}"
 residualList = ["d0", "z0", "phi0", "omega", "tanLambda", "phi", "theta"]
 specialList = ["pt", "p"]
 
-varList = [f"delta_{v}"
-           for v in residualList] + [f"sdelta_{v}" for v in specialList]
+varList = [f"delta_{v}" for v in residualList] + [f"sdelta_{v}" for v in specialList]
 
 title = {
     "delta_d0": "#sigma(#Deltad_{0})[#mum]",
@@ -81,7 +82,7 @@ title = {
 }
 
 file = ROOT.TFile(f"{inputDir}/resolutions.root", "read")
-#TODO: changes here
+# TODO: changes here
 mean = {}
 mean_err = {}
 sigma = {}
@@ -104,6 +105,8 @@ for p in processList:
 
 
 outfile = ROOT.TFile(f"{outputDir}/plots.root", "recreate")
+
+
 # combined plots
 def combined_plots(mode, particle):
     dist = {}
@@ -132,17 +135,23 @@ def combined_plots(mode, particle):
             y_err = None
             if mode == "p":
                 y = ROOT.std.vector["double"](
-                    (sigma[pname(particle, o, i)][v]) for i in inner_list)
+                    (sigma[pname(particle, o, i)][v]) for i in inner_list
+                )
                 y_err = ROOT.std.vector["double"](
-                    (sigma_err[pname(particle, o, i)][v]) for i in inner_list)
+                    (sigma_err[pname(particle, o, i)][v]) for i in inner_list
+                )
             elif mode == "t":
                 y = ROOT.std.vector["double"](
-                    (sigma[pname(particle, i, o)][v]) for i in inner_list)
+                    (sigma[pname(particle, i, o)][v]) for i in inner_list
+                )
                 y_err = ROOT.std.vector["double"](
-                    (sigma_err[pname(particle, i, o)][v]) for i in inner_list)
+                    (sigma_err[pname(particle, i, o)][v]) for i in inner_list
+                )
 
             x = ROOT.std.vector["double"](float(i) for i in inner_list)
-            dist_mode[v][o] = ROOT.TGraphErrors(len(inner_list), x.data(), y.data(), 0, y_err.data())
+            dist_mode[v][o] = ROOT.TGraphErrors(
+                len(inner_list), x.data(), y.data(), 0, y_err.data()
+            )
             dist_mode[v][o].Scale(unit_scale[v])
             dist[v].Add(dist_mode[v][o])
 

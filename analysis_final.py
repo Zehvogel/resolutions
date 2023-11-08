@@ -10,11 +10,11 @@ ROOT.gStyle.SetOptFit(1111)
 ROOT.gStyle.SetPalette(ROOT.kRainBow)
 ROOT.gStyle.SetMarkerSize(2)
 ROOT.gStyle.SetMarkerStyle(33)
-#ROOT.gStyle.SetMarkerStyle(ROOT.kDot)
+# ROOT.gStyle.SetMarkerStyle(ROOT.kDot)
 
 # ParticleList = ["mu", "e", "pi"]
 ParticleList = ["mu-", "e-"]
-#ParticleList = ["mu"]
+# ParticleList = ["mu"]
 # ParticleList = ["e-"]
 ThetaList = ["10", "20", "30", "40", "50", "60", "70", "80", "89"]
 # ThetaList = ["10", "20"]
@@ -24,8 +24,10 @@ MomentumList = ["1", "2", "5", "10", "20", "50", "100"]
 stackMomentumList = ["1", "10", "100"]
 stackThetaList = ["10", "30", "50", "70", "89"]
 
+
 def pname(particle, theta, momentum):
     return f"{particle}_{theta}deg_{momentum}GeV_1000evt"
+
 
 # len(edges) == len(counts) + 1
 def make_bins(edges, counts):
@@ -43,7 +45,7 @@ processList = {
     for theta in ThetaList
     for momentum in MomentumList
 }
-#print(processList)
+# print(processList)
 
 # detectorModel = "CLD_o2_v05"
 detectorModel = "FCCee_o1_v04"
@@ -58,8 +60,7 @@ inputDir = f"Output/stage2/{detectorModel}"
 residualList = ["d0", "z0", "phi0", "omega", "tanLambda", "phi", "theta"]
 specialList = ["pt", "p"]
 
-varList = [f"delta_{v}"
-           for v in residualList] + [f"sdelta_{v}" for v in specialList]
+varList = [f"delta_{v}" for v in residualList] + [f"sdelta_{v}" for v in specialList]
 
 title = {
     "delta_d0": "#sigma(#Deltad_{0})[#mum]",
@@ -79,8 +80,7 @@ var_col_rp = {}
 for p in processList:
     df[p] = ROOT.RDataFrame("events", f"{inputDir}/{p}.root")
     for v in specialList:
-        df[p] = df[p].Define(f"sdelta_{v}",
-                             f"delta_{v} / (true_{v} * true_{v})")
+        df[p] = df[p].Define(f"sdelta_{v}", f"delta_{v} / (true_{v} * true_{v})")
     var_col_rp[p] = {}
     for v in varList:
         var_col_rp[p][v] = df[p].Take["double"](v)
@@ -99,19 +99,22 @@ for p in processList:
         var_col[p][v] = sorted(var_col_rp[p][v].GetValue())
         var_low[p][v] = var_col[p][v][ceil(0.05 * len(var_col[p][v]))]
         var_high[p][v] = var_col[p][v][floor(0.95 * len(var_col[p][v]))]
-       # TODO: calculate special bins here
+        # TODO: calculate special bins here
         bins = (50, var_low[p][v], var_high[p][v])
-        if (p.startswith("e") and v in ["delta_omega", "sdelta_pt", "sdelta_p"]):
+        if p.startswith("e") and v in ["delta_omega", "sdelta_pt", "sdelta_p"]:
             low = var_low[p][v]
             high = var_high[p][v]
             dist = high - low
-            special_bins = make_bins([low, low + 0.7 * dist, low + 0.8 * dist, low + 0.9 * dist, high], [1, 2, 3, 25])
+            special_bins = make_bins(
+                [low, low + 0.7 * dist, low + 0.8 * dist, low + 0.9 * dist, high],
+                [1, 2, 3, 25],
+            )
             bins = (len(special_bins) - 1, np.asarray(special_bins))
-        h[p][v] = (df[p]
-                   .Filter(f"{v} > {var_low[p][v]} && {v} < {var_high[p][v]}")
-                   .Histo1D(
-                       (v, f"{p};{title[v]}", *bins), v)
-                  )
+        h[p][v] = (
+            df[p]
+            .Filter(f"{v} > {var_low[p][v]} && {v} < {var_high[p][v]}")
+            .Histo1D((v, f"{p};{title[v]}", *bins), v)
+        )
 
 # after both runs do fits and make plots
 outfile = ROOT.TFile(f"{outputDir}/resolutions.root", "recreate")
@@ -125,8 +128,13 @@ for p in processList:
         f = None
         # scale histogram bins here
         h[p][v].Scale(1, "width")
-        if (p.startswith("e") and v in ["delta_omega", "sdelta_pt", "sdelta_p"]):
-            f = ROOT.TF1(f"f_{p}_{v}", "ROOT::Math::crystalball_function(x, [0], [1], [2], [3])*[4]", var_low[p][v], var_high[p][v])
+        if p.startswith("e") and v in ["delta_omega", "sdelta_pt", "sdelta_p"]:
+            f = ROOT.TF1(
+                f"f_{p}_{v}",
+                "ROOT::Math::crystalball_function(x, [0], [1], [2], [3])*[4]",
+                var_low[p][v],
+                var_high[p][v],
+            )
             # alpha, n, sigma, mu
             f.SetParameters(1, 1, abs(h[p][v].GetMean()), 0, h[p][v].GetMaximum())
         else:
@@ -135,6 +143,6 @@ for p in processList:
         h[p][v].Fit(f, "R")
         h[p][v].Draw()
         h[p][v].Write()
-        #c.Print(fname)
+        # c.Print(fname)
     # c.Print(f"{fname}]")
 outfile.Close()
