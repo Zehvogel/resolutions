@@ -5,8 +5,6 @@ from ILCDIRAC.Interfaces.API.DiracILC import DiracILC
 from ILCDIRAC.Interfaces.API.NewInterface.UserJob import UserJob
 from ILCDIRAC.Interfaces.API.NewInterface.Applications import GaudiApp
 
-import glob
-
 dIlc = DiracILC()
 
 # ParticleList = ["mu-", "e-", "pi-"]

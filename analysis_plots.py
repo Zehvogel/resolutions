@@ -54,8 +54,8 @@ processList = {
     for momentum in MomentumList
 }
 
-# detectorModel = "CLD_o2_v05"
-detectorModel = "FCCee_o1_v04"
+detectorModel = "CLD_o2_v05"
+# detectorModel = "FCCee_o1_v04"
 
 outputDir = f"Output/plots/{detectorModel}"
 
@@ -79,6 +79,18 @@ title = {
     "delta_theta": "#sigma(#Delta#theta)[mrad]",
     "sdelta_pt": "#sigma(#Deltap_{T}/p_{T,true}^{2})[GeV^{-1}]",
     "sdelta_p": "#sigma(#Deltap/p_{true}^{2})[GeV^{-1}]",
+}
+
+ranges = {
+    "delta_d0": (1, 2e3),
+    "delta_z0": (1, 2e3),
+    # "delta_phi0": (1e-5, 1),
+    # "delta_omega": (1e-5, 1),
+    # "delta_tanLambda": (1e-5, 1),
+    "delta_phi": (1e-2, 25),
+    "delta_theta": (1e-2, 25),
+    "sdelta_pt": (1e-5, 1),
+    "sdelta_p": (1e-5, 1),
 }
 
 file = ROOT.TFile(f"{inputDir}/resolutions.root", "read")
@@ -160,6 +172,10 @@ def combined_plots(mode, particle):
                 "t": f"momentum = {o}GeV",
             }
             legend[v].AddEntry(dist_mode[v][o], legend_string[mode], "pl")
+
+        if v in ranges:
+            dist[v].SetMinimum(ranges[v][0])
+            dist[v].SetMaximum(ranges[v][1])
 
         dist[v].SetTitle(f";{title_string[mode]};{title[v]}")
         dist[v].Draw("AP5 PMC")
