@@ -54,8 +54,8 @@ processList = {
     for momentum in MomentumList
 }
 
-detectorModel = "CLD_o2_v05"
-# detectorModel = "FCCee_o1_v04"
+# detectorModel = "CLD_o2_v05"
+detectorModel = "FCCee_o1_v04"
 
 outputDir = f"Output/plots/{detectorModel}"
 
@@ -81,7 +81,7 @@ title = {
     "sdelta_p": "#sigma(#Deltap/p_{true}^{2})[GeV^{-1}]",
 }
 
-ranges = {
+yranges = {
     "delta_d0": (1, 2e3),
     "delta_z0": (1, 2e3),
     # "delta_phi0": (1e-5, 1),
@@ -91,6 +91,11 @@ ranges = {
     "delta_theta": (1e-2, 25),
     "sdelta_pt": (1e-5, 1),
     "sdelta_p": (1e-5, 1),
+}
+
+xranges = {
+    "p": (1, 200),
+    "t": (0, 90),
 }
 
 file = ROOT.TFile(f"{inputDir}/resolutions.root", "read")
@@ -173,15 +178,19 @@ def combined_plots(mode, particle):
             }
             legend[v].AddEntry(dist_mode[v][o], legend_string[mode], "pl")
 
-        if v in ranges:
-            dist[v].SetMinimum(ranges[v][0])
-            dist[v].SetMaximum(ranges[v][1])
+        if v in yranges:
+            dist[v].SetMinimum(yranges[v][0])
+            dist[v].SetMaximum(yranges[v][1])
 
         dist[v].SetTitle(f";{title_string[mode]};{title[v]}")
         dist[v].Draw("AP5 PMC")
         legend[v].Draw()
         if mode == "p":
             c.SetLogx()
+
+        # doesn't work? :(
+        if mode in xranges:
+            dist[v].GetXaxis().SetRangeUser(*xranges[mode])
 
         c.SetLogy()
         c.SaveAs(f"{outputDir}/{particle}_{mode}_{v}.pdf")
